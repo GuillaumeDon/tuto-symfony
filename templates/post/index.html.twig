@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ post.title }}{% endblock %}
+
+{% block body %}
+{{ parent() }}
+<span class="badge badge-secondary">{{ post.category.name }}</span>
+
+<h2>{{ post.title }}</h2>
+
+<p class="lead">Créé par {{ post.author }} le {{ post.createdAt|date('d/m/Y') }}</p>
+
+<img src="{{ post.image }}" alt="{{ post.title }}" class="img-fluid rounded">
+
+
+<p class="lead">{{ post.content }}</p>
+
+{% if post.comments|length == 0 %}
+   <p>Soyez le premier à commenter cet article!</p>
+{%  else %}
+   <ul>
+       {% for comment in post.comments %}
+           <div class="card mb-3">
+               <div class="card-body">
+                   <h4 class="card-title">Ajouté par {{ comment.user }} 
+                       le {{ comment.createdAt|date("d/m/Y", 'Europe/Paris') }}  
+                        à {{ comment.createdAt|date("H:m", 'Europe/Paris') }}
+                   </h4>
+                   <p class="card-text">{{ comment.content }}</p>
+               </div>
+           </div>
+       {% endfor %}
+   </ul>
+{% endif %}
+{{ form_start(form) }}
+{{ form_widget(form.content, {'attr': {'class':'my-class'}}) }}
+<input type="submit" value="Envoyer" class="btn btn-primary">
+{{ form_end(form) }}
+<div class="error-message">{{ form_errors(form.user) }}</div>
+
+{% endblock %}

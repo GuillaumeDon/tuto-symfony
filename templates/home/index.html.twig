@@ -29,6 +29,7 @@
         <?php foreach ($posts as $post): ?>
              <div>
                   <h2><?=$post->title;?></h2>
+                  
              </div>
         <?php endforeach; ?>
      #}
@@ -42,12 +43,15 @@
 
 
     {% for post in posts %}
-        <div>
-          <h2>{{ post.title }}</h2>
+
+          <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <span class="badge badge-secondary">{{ post.category.name }}</span>
+          
           <p>Créé par {{ post.author }} le {{ post.createdAt|date("d/m/Y") }}</p>
           <img src="{{ post.image }}" alt="{{ post.title }}">
           <p>{{ post.content|slice(150) }}</p>
-          <a href="#">Lire la suite</a>
+          <a href="{{ path('post.index', {'slug':post.slug}) }}">Lire la suite</a>
         </div>
     {% endfor %}
 

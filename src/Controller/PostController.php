@@ -21,6 +21,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment = $form->getData();
             $comment->setPost($post);
+            $comment->setUser($this->getUser());
             $comment->setCreatedAt(new DateTime());
             $manager->persist($comment);
             $manager->flush();
@@ -35,4 +36,7 @@ class PostController extends AbstractController
             'form' => $form->createView()
        ]);
     }
+
+    
+    
 }

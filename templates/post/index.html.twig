@@ -22,7 +22,7 @@
        {% for comment in post.comments %}
            <div class="card mb-3">
                <div class="card-body">
-                   <h4 class="card-title">Ajouté par {{ comment.user }} 
+                   <h4 class="card-title">Ajouté par {{ comment.user.firstname }} 
                        le {{ comment.createdAt|date("d/m/Y", 'Europe/Paris') }}  
                         à {{ comment.createdAt|date("H:m", 'Europe/Paris') }}
                    </h4>
@@ -32,10 +32,19 @@
        {% endfor %}
    </ul>
 {% endif %}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 {{ form_start(form) }}
-{{ form_widget(form.content, {'attr': {'class':'my-class'}}) }}
-<input type="submit" value="Envoyer" class="btn btn-primary">
+{{ form_widget(form) }}
+{# {{ form_widget(form.content, {'attr': {'class':'my-class'}}) }} #}
+<input type="submit" value="Envoyer" class="btn btn-primary my-3">
 {{ form_end(form) }}
-<div class="error-message">{{ form_errors(form.user) }}</div>
+
+{% else %}
+   <p>Pour poster un commentaire, <a href="{{ path('security.login') }}">   
+          connectez-vous</a> ou <a href="#">créez un compte</a>.</p>
+          {# <div class="error-message">{{ form_errors(form.user) }}</div> #}
+{% endif %}
+
 
 {% endblock %}

@@ -8,21 +8,29 @@
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 
          <link href="/css/blog.css" rel="stylesheet">
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        {% block body %}
-        {% for message in app.flashes('success') %}
+    {% block nav %}
+    {{ include('inc/_nav.html.twig') }}
+{%  endblock %}
+           {% for message in app.flashes('success') %}
    <div class="alert alert-success mt-3" role="alert">{{ message }}</div>
 {% endfor %}
-            {{ include('inc/_nav.html.twig') }}
+        {% block body %}
+ 
+
+
+            
         {% endblock %}
     </body>
 </html>

@@ -1,0 +1,29 @@
+{% extends 'admin/base.admin.html.twig' %}
+
+
+
+
+{% block body %}
+<table class="posts-list">
+<tbody>
+    {% for post in posts %}
+        <tr>
+            <th scope="row">#{{ post.id }}</th>
+            <td>{{ post.createdAt|date("d/m/Y", "Europe/Paris") }}</td>
+            <td>{{ post.title }}</td>
+           <td>{{ post.author }}</td>
+            <td>
+                <figure>
+                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                </figure>
+            </td>
+            <td>{{ post.category.name }}</td>
+            <td>
+             <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+             <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+            </td>
+       </tr>
+           {% endfor %}
+</tbody>
+</table>
+{% endblock %}
